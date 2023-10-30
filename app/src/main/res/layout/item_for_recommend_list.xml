@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="180dp"
+    android:layout_height="270dp"
+    android:orientation="vertical"
+    >
+
+    <ImageView
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/img1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/anhconthodan"/>
+
+    <TextView
+        android:id="@+id/des1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="15dp"
+        android:text="Đây là một con thỏ bị đần, đần vcl hahaha"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="US$100"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginLeft="10dp"/>
+
+</LinearLayout>
