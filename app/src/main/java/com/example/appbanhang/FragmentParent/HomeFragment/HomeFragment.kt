@@ -118,7 +118,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                         override fun onItemClick(position: Int) {
                             Toast.makeText(requireContext(),"You click on me $position", Toast.LENGTH_SHORT).show()
                             val intent = Intent(requireContext(), DetailActivityRecommend::class.java)
-                            Log.d("------", "key: ${ds1[position].key} ")
                             intent.putExtra("key",ds1[position].key)
                             startActivity(intent)
                         }

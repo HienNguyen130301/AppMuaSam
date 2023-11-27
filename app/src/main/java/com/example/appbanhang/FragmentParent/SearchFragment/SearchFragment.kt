@@ -40,12 +40,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                 override fun onItemClick(position: Int) {
                     Toast.makeText(requireContext(),"You click on me $position", Toast.LENGTH_SHORT).show()
                     val intent = Intent(requireContext(), DetailActivityCate::class.java)
-                    Log.d("------", "key: ${ds1[position].key} ")
-                    intent.putExtra("tenSP",ds1[position].tenSP)
-                    intent.putExtra("ImageURL",ds1[position].imageUrl)
                     intent.putExtra("key",ds1[position].key)
                     startActivity(intent)
-                    Toast.makeText(requireContext(),"You click on me $position", Toast.LENGTH_SHORT).show()
                 }
             })
 

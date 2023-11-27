@@ -32,8 +32,6 @@ class DetailActivityRecommend : BaseActivity<ActivityDetailRecommendBinding>() {
         val key = bundle?.getString("key")
 
         dbRef =FirebaseDatabase.getInstance().getReference("ThemBaiDang").child(key!!)
-
-
         dbRef.addListenerForSingleValueEvent(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
