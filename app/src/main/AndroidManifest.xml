@@ -15,18 +15,34 @@
         android:theme="@style/Theme.AppBanHang"
         tools:targetApi="31">
         <activity
+            android:name="com.example.appbanhang.FragmentParent.MessageFragment.MessageFragment"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentParent.HomeFragment.DangBai.DetailCateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentParent.HomeFragment.DetailActivityRecommend"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentParent.SearchFragment.DetailActivityCate"
+            android:exported="false" />
+        <activity
+            android:name=".FragmentParent.HomeFragment.ItemDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".DangBaiActivity"
+            android:name=".FragmentParent.HomeFragment.DangBai.DangBaiActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

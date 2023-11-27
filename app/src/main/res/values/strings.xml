@@ -2,5 +2,19 @@
     <string name="app_name">AppBanHang</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="nguyen_minh_hien">Nguyen Minh Hien</string>
+    <string name="you_dont_have_a_account">You dont have a account</string>
+    <string name="shop_by_category">Shop By Category</string>
+    <string name="recommended_for_you">Recommended For You</string>
+    <string name="trending_for_you">Trending For You</string>
+    <string name="account">Account</string>
+    <string name="profile">Profile</string>
+    <string name="name_email_password_shoe_size">Name,Email,Password,Shoe Size</string>
+
+    <array name="your_spinner_items">
+        <item>Sneaker</item>
+        <item>Shoes</item>
+        <item>Apparel</item>
+        <item>Electronics</item>
+        <item>Accessorie</item>
+    </array>
 </resources>

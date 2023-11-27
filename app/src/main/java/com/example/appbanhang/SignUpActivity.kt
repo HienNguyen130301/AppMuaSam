@@ -7,7 +7,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.appbanhang.Base.BaseActivity
 import com.example.appbanhang.Data.DataUsers
+import com.example.appbanhang.databinding.ActivitySignUpBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -19,24 +21,23 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import java.util.UUID
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity<ActivitySignUpBinding>() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var dbRef: DatabaseReference
 
-    @SuppressLint("MissingInflatedId")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
+    override val layoutId: Int
+        get() = R.layout.activity_sign_up
+
+    override fun setupUI() {
+        super.setupUI()
 
         auth = Firebase.auth
         dbRef = FirebaseDatabase.getInstance().getReference("Users")
 
-        val mSignUp: Button = findViewById(R.id.signUp_btn)
-        mSignUp.setOnClickListener {
+        binding.signUpBtn.setOnClickListener {
             SignUp()
         }
-
     }
 
     private fun SignUp() {
@@ -85,5 +86,4 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Da co loi", Toast.LENGTH_SHORT).show()
             }
     }
-
 }
