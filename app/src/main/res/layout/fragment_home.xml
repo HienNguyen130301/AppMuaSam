@@ -61,22 +61,22 @@
                     android:id="@+id/txtTangGiam"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="30dp"
+                    android:layout_marginStart="80dp"
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="@+id/rcv3"
                     app:layout_constraintStart_toEndOf="@+id/text3"
-                    app:layout_constraintTop_toBottomOf="@+id/rcv1">
+                    app:layout_constraintTop_toBottomOf="@+id/searchView1">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Sap xep gia:" />
+                        android:text="Sort by price:" />
 
                     <TextView
                         android:id="@+id/tang"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tang"
+                        android:text="Acs"
                         android:textColor="@color/black"
                         android:textStyle="bold"
                         android:visibility="gone" />
@@ -85,25 +85,44 @@
                         android:id="@+id/giam"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Giam"
+                        android:text="Des"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/sortAvail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sort by Avail:"
+                    app:layout_constraintEnd_toStartOf="@+id/txtTangGiam"
+                    app:layout_constraintStart_toEndOf="@+id/text3"
+                    app:layout_constraintTop_toBottomOf="@+id/searchView1" />
+
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/searchView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/bg_boder"
+                    app:iconifiedByDefault="false"
+                    app:layout_constraintTop_toBottomOf="@+id/rcv1"
+                    app:queryHint="Search Me"
+                    tools:layout_editor_absoluteX="10dp" />
 
                 <TextView
                     android:id="@+id/text3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="50dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginEnd="263dp"
                     android:text="@string/trending_for_you"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/rcv3"
-                    app:layout_constraintTop_toBottomOf="@+id/rcv1" />
+                    app:layout_constraintTop_toBottomOf="@+id/searchView1" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv3"

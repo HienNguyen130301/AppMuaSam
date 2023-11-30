@@ -1,12 +1,11 @@
 package com.example.appbanhang
 
 import android.content.pm.ActivityInfo
-import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.appbanhang.Base.BaseActivity
 import com.example.appbanhang.FragmentParent.HomeFragment.HomeFragment
 import com.example.appbanhang.FragmentParent.SearchFragment.SearchFragment
-import com.example.appbanhang.FragmentParent.YouFragment
+import com.example.appbanhang.FragmentParent.YouFragment.YouFragment
 import com.example.appbanhang.databinding.ActivityMainBinding
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -32,8 +31,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
             true
         }
-
     }
+
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = supportFragmentManager

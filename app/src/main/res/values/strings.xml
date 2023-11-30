@@ -17,4 +17,10 @@
         <item>Electronics</item>
         <item>Accessorie</item>
     </array>
+
+    <array name="your_spinner_items1">
+        <item>True</item>
+        <item>False</item>
+        <item>hehehe</item>
+    </array>
 </resources>

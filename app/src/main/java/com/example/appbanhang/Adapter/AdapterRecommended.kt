@@ -64,11 +64,11 @@ class AdapterRecommended(private var itemList: ArrayList<DataRecommended>):
                 )
             }
             if (data.isAvailable == true ) {
-                isAvailible.visibility
-                isAvailible1.isInvisible
+                isAvailible.visibility = View.VISIBLE
+                isAvailible1.visibility = View.GONE
             }else {
-                isAvailible.isInvisible
-                isAvailible1.visibility
+                isAvailible.visibility = View.GONE
+                isAvailible1.visibility = View.VISIBLE
             }
         }
     }
@@ -86,6 +86,7 @@ class AdapterRecommended(private var itemList: ArrayList<DataRecommended>):
         holder.tenSP.text = currentItem.tenSP
         holder.price.text = currentItem.price +"$"
         holder.type.text = "Type:" + currentItem.type
+
 
 
     }

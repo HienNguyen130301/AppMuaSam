@@ -1,14 +1,19 @@
 package com.example.appbanhang.FragmentParent.SearchFragment
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
+import android.widget.ArrayAdapter
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.appbanhang.Base.BaseActivity
 import com.example.appbanhang.Data.DataRecommended
+import com.example.appbanhang.MainActivity
 import com.example.appbanhang.R
 import com.example.appbanhang.databinding.ActivityDetailCateBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -36,12 +41,12 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
                     visibility = ImageView.VISIBLE
                 }
             }
-            val base64Image = convertImageToBase64(selectedImageUri)
-            updateImageToFirebase(base64Image)
         }
 
     override fun setupUI() {
         super.setupUI()
+
+
 
         binding.imageDetail1.setOnClickListener {
             selectImage.launch("image/*")
@@ -51,6 +56,7 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
 
         val bundle: Bundle? = intent.extras
         val key = bundle?.getString("key")
+        Log.d("hienzd", "setupUI: $key")
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val userId = firebaseUser?.uid
         dbRef = FirebaseDatabase.getInstance().getReference("YourPost").child(userId!!).child(key!!)
@@ -63,6 +69,7 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
                         binding.txtGia.text = dataRecommended.price
                         binding.txtDes.text = dataRecommended.des
                         binding.txtType.text = dataRecommended.type
+                        binding.txtTrangThai.text = dataRecommended.isAvailable.toString()
 
                         if (dataRecommended.imageUrl != null) {
                             val decodedBytes =
@@ -76,17 +83,43 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
             }
-
         })
-
+        binding.txtTrangThai1.setOnCheckedChangeListener { buttonView, isChecked ->
+            val newAvailable = isChecked.toString()
+            Log.d("Checkbox", "New Available: $newAvailable")
+        }
         binding.Luu.setOnClickListener {
             val newTenSP = binding.txtTenSp1.text.toString()
             val newGiaSP = binding.txtGia1.text.toString()
             val newDesSP = binding.txtDes1.text.toString()
             val newTypeSP = binding.txtType1.text.toString()
-            updateDataToFirebase(newTenSP, newGiaSP, newDesSP, newTypeSP)
+
+            val newAvailable = binding.txtTrangThai1.isChecked
+            if (newTenSP.isEmpty() || newGiaSP.isEmpty() || newDesSP.isEmpty() || newTypeSP.isEmpty()) {
+                Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            if (!::selectedImageUri.isInitialized) {
+                Toast.makeText(this, "Please select an image", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val base64Image = convertImageToBase64(selectedImageUri)
+            updateDataToFirebase(newTenSP, newGiaSP, newDesSP, newTypeSP,newAvailable,base64Image)
+                Toast.makeText(this,"Change Data Successfully", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
+        }
+
+        binding.xoa.setOnClickListener {
+            val dbRefYourPost = FirebaseDatabase.getInstance().getReference("YourPost").child(userId).child(key)
+            dbRefYourPost.removeValue()
+            val dbRefThemBaiDang = FirebaseDatabase.getInstance().getReference("ThemBaiDang").child(key)
+            dbRefThemBaiDang.removeValue()
+            Toast.makeText(this,"Delete Data Successfully", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this,MainActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -95,14 +128,45 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
         newGiaSP: String,
         newDesSP: String,
         newTypeSP: String,
+        newAvailable: Boolean,
+        base64Image: String
     ) {
-        val bundle: Bundle? = intent.extras
-        val key = bundle?.getString("key")
-        val dbRef = FirebaseDatabase.getInstance().getReference("YourPost").child(key!!)
-        dbRef.child("tenSP").setValue(newTenSP)
-        dbRef.child("price").setValue(newGiaSP)
-        dbRef.child("des").setValue(newDesSP)
-        dbRef.child("type").setValue(newTypeSP)
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val userId: String = firebaseUser!!.uid
+        val userName = FirebaseDatabase.getInstance().getReference("Users").child(userId)
+        userName.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()){
+                    val email = snapshot.child("userName").getValue(String::class.java)
+
+                    val bundle: Bundle? = intent.extras
+                    val key = bundle?.getString("key")
+                    val dbRef = FirebaseDatabase.getInstance().getReference("YourPost").child(userId).child(key!!)
+                    dbRef.child("imageUrl").setValue(base64Image)
+                    dbRef.child("tenSP").setValue(newTenSP)
+                    dbRef.child("price").setValue(newGiaSP)
+                    dbRef.child("des").setValue(newDesSP)
+                    dbRef.child("type").setValue(newTypeSP)
+                    dbRef.child("available").setValue(newAvailable)
+                    dbRef.child("userID").setValue(userId)
+                    dbRef.child("userName").setValue(email)
+
+                    val dbRefThemBaiDang = FirebaseDatabase.getInstance().getReference("ThemBaiDang").child(key)
+                    dbRefThemBaiDang.child("imageUrl").setValue(convertImageToBase64(selectedImageUri))
+                    dbRefThemBaiDang.child("tenSP").setValue(newTenSP)
+                    dbRefThemBaiDang.child("price").setValue(newGiaSP)
+                    dbRefThemBaiDang.child("des").setValue(newDesSP)
+                    dbRefThemBaiDang.child("type").setValue(newTypeSP)
+                    dbRefThemBaiDang.child("available").setValue(newAvailable)
+                    dbRefThemBaiDang.child("userID").setValue(userId)
+                    dbRefThemBaiDang.child("userName").setValue(email)
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        })
     }
 
     private fun convertImageToBase64(uri: Uri): String {
@@ -112,10 +176,4 @@ class DetailSearchFragment : BaseActivity<ActivityDetailCateBinding>() {
         return Base64.encodeToString(bytes, Base64.DEFAULT)
     }
 
-    private fun updateImageToFirebase(imageUrl: String) {
-        val bundle: Bundle? = intent.extras
-        val key = bundle?.getString("key")
-        val dbRef = FirebaseDatabase.getInstance().getReference("ThemBaiDang").child(key!!)
-        dbRef.child("imageUrl").setValue(imageUrl)
-    }
 }

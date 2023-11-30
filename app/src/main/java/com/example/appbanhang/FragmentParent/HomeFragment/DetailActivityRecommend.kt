@@ -44,6 +44,9 @@ class DetailActivityRecommend : BaseActivity<ActivityDetailRecommendBinding>() {
                         binding.txtGiaRcm.text = dataRecommended.price
                         binding.txtDesRcm.text = dataRecommended.des
                         binding.txtTypeRcm.text = dataRecommended.type
+                        if(dataRecommended.isAvailable == true) {
+                            binding.txtTrangThaiRcm.text = "Still Available"
+                        } else {binding.txtTrangThaiRcm.text = " Not Available"}
                         binding.txtTrangThaiRcm.text
 
                         if (dataRecommended.imageUrl != null) {

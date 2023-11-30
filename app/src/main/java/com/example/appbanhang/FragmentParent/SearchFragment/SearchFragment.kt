@@ -103,6 +103,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
                             val empData = empSnap.getValue(DataRecommended::class.java)
                             empData?.let {
                                 newDataSet.add(it)
+                                val key = empSnap.key
+                                empData.key = key
                             }
                         }
                         mAdapter.submitList(newDataSet)

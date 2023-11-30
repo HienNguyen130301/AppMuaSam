@@ -40,6 +40,9 @@ class ListChatActivity : BaseActivity<ActivityListChatBinding>() {
             rcvListchat.layoutManager = LinearLayoutManager(this@ListChatActivity, RecyclerView.VERTICAL, false)
             ds = ArrayList()
             ds = arrayListOf<DataUsers>()
+            binding.imgBack.setOnClickListener {
+                onBackPressed()
+            }
 
 
             dbRef = FirebaseDatabase.getInstance().getReference("Users")
@@ -74,7 +77,6 @@ class ListChatActivity : BaseActivity<ActivityListChatBinding>() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-
                 }
             })
         }
