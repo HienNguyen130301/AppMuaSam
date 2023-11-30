@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".FragmentParent.HomeFragment.DangBai.DangBaiActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_arrow_back_ios_new_24" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="Back"
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="80dp"
+                android:text="Selling"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/nhapTenSP"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_item_setting"
+                android:hint="Nhập tên sản phẩm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Spinner
+                android:id="@+id/chooseType"
+                android:layout_width="211dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_item_setting"
+                android:hint="Nhập tên sản phẩm"
+                app:layout_constraintStart_toEndOf="@+id/nhapImg"
+                app:layout_constraintTop_toTopOf="parent"
+                android:entries="@array/your_spinner_items" />
+
+            <EditText
+                android:id="@+id/nhapPrice"
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_item_setting"
+                android:hint="Nhập giá:"
+                app:layout_constraintStart_toEndOf="@+id/nhapImg"
+                app:layout_constraintTop_toBottomOf="@+id/chooseType" />
+
+            <EditText
+                android:id="@+id/nhapDes"
+                android:layout_width="211dp"
+                android:layout_height="100dp"
+                android:background="@drawable/bg_item_setting"
+                android:hint="Nhap Descripsion"
+                app:layout_constraintStart_toEndOf="@+id/nhapImg"
+                app:layout_constraintTop_toBottomOf="@+id/nhapPrice" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/baseline_attach_money_24"
+                app:layout_constraintBottom_toBottomOf="@+id/nhapPrice"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nhapPrice" />
+
+            <ImageView
+                android:id="@+id/nhapImg"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/bg_item_setting"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn1"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="41dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="42dp"
+                android:layout_marginBottom="335dp"
+                android:background="@drawable/bg_item_setting"
+                android:text="Upload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nhapImg"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>
