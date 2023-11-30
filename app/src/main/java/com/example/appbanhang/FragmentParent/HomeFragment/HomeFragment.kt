@@ -14,7 +14,6 @@ import com.example.appbanhang.Adapter.ImageAdapterViewPager2
 import com.example.appbanhang.Base.BaseFragment
 import com.example.appbanhang.Data.DataCate
 import com.example.appbanhang.Data.DataRecommended
-import com.example.appbanhang.FragmentParent.SearchFragment.DetailActivityCate
 import com.example.appbanhang.FragmentParent.HomeFragment.DangBai.DangBaiActivity
 import com.example.appbanhang.FragmentParent.HomeFragment.DangBai.DetailCateActivity
 import com.example.appbanhang.R
@@ -36,6 +35,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     private lateinit var imageList: List<Int>
 
     private lateinit var dbRef: DatabaseReference
+
+    private var sortList = false
 
     override val layoutId: Int
         get() = R.layout.fragment_home
@@ -87,12 +88,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
             rcv2.adapter = adapterCate
 
-            adapterCate.setonItemClickListener(object : AdapterCate.onItemClickListener{
+            adapterCate.setonItemClickListener(object : AdapterCate.onItemClickListener {
                 override fun onItemClick(position: Int) {
-                    Toast.makeText(requireContext(),"You click on me $position", Toast.LENGTH_SHORT).show()
                     val intent = Intent(requireContext(), DetailCateActivity::class.java)
                     Log.d("------", "des: ${ds[position].des} ")
-                    intent.putExtra("des",ds[position].des)
+                    intent.putExtra("des", ds[position].des)
                     startActivity(intent)
                 }
             })
@@ -114,11 +114,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
                     mAdapter = AdapterRecommended(ds1)
                     binding.rcv3.adapter = mAdapter
-                    mAdapter.setonItemClickListener(object : AdapterRecommended.onItemClickListener{
+
+                    mAdapter.setonItemClickListener(object :
+                        AdapterRecommended.onItemClickListener {
                         override fun onItemClick(position: Int) {
-                            Toast.makeText(requireContext(),"You click on me $position", Toast.LENGTH_SHORT).show()
                             val intent = Intent(requireContext(), DetailActivityRecommend::class.java)
-                            intent.putExtra("key",ds1[position].key)
+                            intent.putExtra("key", ds1[position].key)
                             startActivity(intent)
                         }
                     })
@@ -129,8 +130,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         })
         binding.txtTangGiam.setOnClickListener {
-            val ascendingOrder = binding.txtTangGiam.tag == null || binding.txtTangGiam.tag == true
-            loadDataSortedByPrice(ascendingOrder)
+            sortList = !sortList
+            loadDataSortedByPrice(sortList)
+            if (sortList == true) {
+                binding.tang.visibility
+                binding.giam.isInvisible
+            } else {
+                binding.tang.isInvisible
+                binding.giam.visibility
+            }
         }
     }
 
@@ -168,13 +176,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     }
 
                     ds1.sortBy { it.price }
-                    if (!ascendingOrder) {
-                        ds1.reverse()
-                        binding.tang.visibility
-                        binding.giam.isInvisible
-                    } else {binding.tang.isInvisible
-                        binding.giam.visibility}
-
+                    if (!ascendingOrder) {ds1.reverse()}
                     mAdapter = AdapterRecommended(ds1)
                     binding.rcv3.adapter = mAdapter
 
@@ -190,9 +192,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                     binding.txtTangGiam.tag = ascendingOrder
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
-                Log.e("GRcv", "Database error: ${error.message}")
             }
         })
     }

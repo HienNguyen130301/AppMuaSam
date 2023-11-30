@@ -85,4 +85,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
+    <TextView
+        android:id="@+id/availible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Available"
+        android:layout_marginStart="15dp"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
+    <TextView
+        android:id="@+id/notAvailible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Not Available"
+        android:layout_marginStart="15dp"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/type" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

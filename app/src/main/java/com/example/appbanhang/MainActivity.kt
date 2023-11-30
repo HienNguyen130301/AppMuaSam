@@ -1,10 +1,10 @@
 package com.example.appbanhang
 
 import android.content.pm.ActivityInfo
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.appbanhang.Base.BaseActivity
 import com.example.appbanhang.FragmentParent.HomeFragment.HomeFragment
-import com.example.appbanhang.FragmentParent.MessageFragment.MessageFragment
 import com.example.appbanhang.FragmentParent.SearchFragment.SearchFragment
 import com.example.appbanhang.FragmentParent.YouFragment
 import com.example.appbanhang.databinding.ActivityMainBinding
@@ -24,7 +24,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             when (it.itemId) {
                 R.id.home -> replaceFragment(HomeFragment())
                 R.id.wallet -> replaceFragment(SearchFragment())
-                R.id.chart -> replaceFragment(MessageFragment())
                 R.id.more -> replaceFragment(YouFragment())
 
                 else -> {
@@ -33,6 +32,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             }
             true
         }
+
     }
 
     private fun replaceFragment(fragment: Fragment) {

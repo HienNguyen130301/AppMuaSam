@@ -54,6 +54,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="10dp"
+            android:text="Still Availble"
             android:background="@drawable/bg_boder"
             android:gravity="center" />
 

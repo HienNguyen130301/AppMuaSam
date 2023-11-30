@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appbanhang.Data.DataRecommended
 import com.example.appbanhang.R
+import org.w3c.dom.Text
 import java.util.Locale
 
 class AdapterRecommended(private var itemList: ArrayList<DataRecommended>):
@@ -34,6 +36,8 @@ class AdapterRecommended(private var itemList: ArrayList<DataRecommended>):
         val price = itemView.findViewById<TextView>(R.id.price)
         val type = itemView.findViewById<TextView>(R.id.type)
         val favoriteIcon = itemView.findViewById<ImageView>(R.id.checkbox)
+        val isAvailible = itemView.findViewById<TextView>(R.id.availible)
+        val isAvailible1 = itemView.findViewById<TextView>(R.id.notAvailible)
 
 
         init {
@@ -51,15 +55,20 @@ class AdapterRecommended(private var itemList: ArrayList<DataRecommended>):
                     BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
                 img1.setImageBitmap(decodedBitmap)
             }
-
             favoriteIcon.setImageResource(if (data.isFavorite) R.drawable.ic_check_box_24 else R.drawable.ic_check_box_outline_blank_24)
-
             favoriteIcon.setOnClickListener {
                 data.isFavorite = !data.isFavorite
                 favoriteIcon.setImageResource(
                     if (data.isFavorite) R.drawable.ic_check_box_outline_blank_24
                     else R.drawable.ic_check_box_24
                 )
+            }
+            if (data.isAvailable == true ) {
+                isAvailible.visibility
+                isAvailible1.isInvisible
+            }else {
+                isAvailible.isInvisible
+                isAvailible1.visibility
             }
         }
     }

@@ -10,10 +10,6 @@
         android:icon="@drawable/manage_search_24"
         android:title="Search"/>
     <item
-        android:id="@+id/chart"
-        android:icon="@drawable/message_24"
-        android:title="Message"/>
-    <item
         android:id="@+id/more"
         android:icon="@drawable/baseline_people_outline_24"
         android:title="You"/>
