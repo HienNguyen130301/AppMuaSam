@@ -3,9 +3,10 @@ package com.example.appbanhang.Data
 import android.os.Parcel
 import android.os.Parcelable
 
-class DataCate(val img: Int, val des: String?): Parcelable {
+class DataCate(val img: Int, val des: String?, val type: String?): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
+        parcel.readString(),
         parcel.readString()
     ) {
     }

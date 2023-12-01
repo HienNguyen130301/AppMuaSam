@@ -3,9 +3,7 @@ package com.example.appbanhang.FragmentParent.HomeFragment
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +15,6 @@ import com.example.appbanhang.Base.BaseFragment
 import com.example.appbanhang.Data.DataCate
 import com.example.appbanhang.Data.DataRecommended
 import com.example.appbanhang.FragmentParent.HomeFragment.DangBai.DangBaiActivity
-import com.example.appbanhang.FragmentParent.HomeFragment.DangBai.DetailCateActivity
 import com.example.appbanhang.R
 import com.example.appbanhang.databinding.FragmentHomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -86,6 +83,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             SampleData()
             adapterCate = AdapterCate(ds)
             rcv1.adapter = adapterCate
+
+            adapterCate.setonItemClickListener(object : AdapterCate.onItemClickListener {
+                override fun onItemClick(position: Int) {
+                    // Filter data based on the selected type
+                    val selectedType = ds[position].type
+                    filterDataByType(selectedType!!)
+                }
+            })
         }
     }
 
@@ -151,11 +156,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     }
 
     private fun SampleData() {
-        ds.add(DataCate(R.drawable.giay, "Sneaker"))
-        ds.add(DataCate(R.drawable.dep, "Shoes"))
-        ds.add(DataCate(R.drawable.ao, "Apparel"))
-        ds.add(DataCate(R.drawable.ps5, "Electronics"))
-        ds.add(DataCate(R.drawable.backpack, "Accessories"))
+        ds.add(DataCate(R.drawable.giay, "Sneaker","Sneaker"))
+        ds.add(DataCate(R.drawable.dep, "Shoes","Shoes"))
+        ds.add(DataCate(R.drawable.ao, "Apparel","Apparel"))
+        ds.add(DataCate(R.drawable.ps5, "Electronics","Electronics"))
+        ds.add(DataCate(R.drawable.backpack, "Accessories","Accessories"))
     }
 
     private fun loadDataSortedByPrice(ascendingOrder: Boolean) {
@@ -234,6 +239,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
             }
         })
     }
+
     private fun searchFirebaseData(query: String) {
         val searchQuery = query.toLowerCase()
         val firebaseUser = FirebaseAuth.getInstance().currentUser
@@ -253,6 +259,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
                 mAdapter.submitList(searchResults)
             }
             override fun onCancelled(databaseError: DatabaseError) {
+            }
+        })
+    }
+
+    private fun filterDataByType(selectedType: String) {
+        val filteredList = ds1.filter { it.type == selectedType } as ArrayList
+
+        mAdapter = AdapterRecommended(filteredList)
+        binding.rcv3.adapter = mAdapter
+
+        mAdapter.setonItemClickListener(object : AdapterRecommended.onItemClickListener {
+            override fun onItemClick(position: Int) {
+                val intent = Intent(requireContext(), DetailActivityRecommend::class.java)
+                intent.putExtra("key", filteredList[position].key)
+                startActivity(intent)
             }
         })
     }
